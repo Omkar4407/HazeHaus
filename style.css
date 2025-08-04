@@ -908,9 +908,9 @@ footer {
   }
 
   .nav-container {
-    grid-template-columns: auto 1fr auto; /* Adjusts to fit hamburger and logo */
+    display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures even spacing */
+    justify-content: space-between;
     min-height: 64px; /* Compact mobile height */
   }
   
@@ -919,14 +919,16 @@ footer {
     display: none; 
   }
 
-  /* --- POSITIONING WITH ORDER --- */
-  /* This is the key fix that makes the layout work */
+  /* --- POSITIONING WITH FLEXBOX --- */
   .hamburger {
     order: 1; /* Visually places the hamburger first (on the left) */
   }
 
   .logo-container {
-    order: 2; /* Visually places the logo second (on the right) */
+    order: 2; /* Visually places the logo second (in the center) */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   /* --- LOGO SIZE TWEAKS --- */
@@ -1143,10 +1145,17 @@ footer {
 
     .nav-container {
         min-height: 60px;
+        position: relative;
     }
 
     .logo {
         font-size: 24px;
+    }
+
+    .logo-container {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .container {
