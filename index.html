@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Haze Haus - Handmade Crochet Creations. Discover cozy blankets, amigurumi, and stylish apparel, all crafted with love.">
+  <title>Haze Haus - Handmade Crochet Creations</title>
+  
+  <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=alternate_email" />
+</head>
+<body>
+<!-- ====================================================== -->
+<!-- === (CORRECTED) SPLASH SCREEN ANIMATION (START) === -->
+<!-- ====================================================== -->
+<div id="splash-screen">
+  <div id="top-panel"></div>
+  <div id="bottom-panel"></div>
+  
+  <!-- The needle is now the main animation container -->
+  <div id="needle-container">
+    <!-- The beige dashed thread now lives inside -->
+    <div id="thread"></div>
+    <!-- The needle SVG itself -->
+    <svg id="needle-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20">
+      <path d="M0 10 L80 10 Q85 10 90 13 L95 18 Q100 10 95 2 L90 7 Q85 10 80 10" fill="none" stroke="#F5F5DC" stroke-width="2.5"/>
+    </svg>
+  </div>
+</div>
+<!-- ==================================================== -->
+<!-- === SPLASH SCREEN ANIMATION (END) === -->
+<!-- ==================================================== -->
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-container">
+        <!-- Left Desktop Links -->
+        <div class="nav-section left">
+          <ul class="nav-links">
+            <li><a href="#shop" class="nav-link">Shop</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+          </ul>
+        </div>
+        <!-- Logo text centered absolutely -->
+        <a href="#home" class="logo-container" aria-label="Haze Haus Home">
+          <div class="logo">
+            Haze <img src="logo.jpg" alt="Logo" class="inline-logo-img" /> Haus
+          </div>
+        </a>
+        <!-- Right Desktop Links & Icons -->
+        <div class="nav-section right">
+          <ul class="nav-links">
+            <li><a href="#blog" class="nav-link">Blog</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+          <div class="nav-icons">
+            <button class="icon-btn" id="search-btn" aria-label="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+            <button class="icon-btn" aria-label="Shopping Cart">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span class="cart-count" id="cart-count">0</span>
+            </button>
+          </div>
+        </div>
+        <!-- Hamburger Menu (Mobile) -->
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobile-menu">
+        <ul class="nav-links">
+          <li><a href="#shop" class="nav-link mobile-nav-link">Shop</a></li>
+          <li><a href="#about" class="nav-link mobile-nav-link">About</a></li>
+          <li><a href="#blog" class="nav-link mobile-nav-link">Blog</a></li>
+          <li><a href="#contact" class="nav-link mobile-nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+          <button class="icon-btn" id="mobile-search-btn" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+          <button class="icon-btn" aria-label="Shopping Cart">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1 class="fade-in">Crafted with Love, One Stitch at a Time.</h1>
+        <p class="fade-in" style="transition-delay: 0.2s;">Discover our collection of handmade crochet goods, from cozy blankets to adorable amigurumi. Each piece is uniquely crafted to bring warmth and joy into your life.</p>
+        <div class="fade-in" style="transition-delay: 0.4s;">
+          <a href="#shop" class="btn">Explore Creations</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="about">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Why Choose Haze Haus</h2>
+          <p>We combine passion, quality materials, and meticulous craftsmanship in every creation.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card fade-in">
+            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+            <h3>Handmade with Heart</h3>
+            <p>Every item is crocheted by hand with meticulous attention to detail, ensuring a truly special and personal touch.</p>
+          </div>
+          <div class="feature-card fade-in" style="transition-delay: 0.2s;">
+            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></div>
+            <h3>Premium Quality Yarns</h3>
+            <p>We source only the softest, most durable, and often eco-friendly yarns to create pieces that are a delight to touch and built to last.</p>
+          </div>
+          <div class="feature-card fade-in" style="transition-delay: 0.4s;">
+            <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg></div>
+            <h3>Unique & Custom Gifts</h3>
+            <p>Looking for something one-of-a-kind? We love creating custom pieces for birthdays, baby showers, and any special occasion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="section products" id="shop">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Our Creations</h2>
+          <p>Explore our handmade collection of amigurumi, apparel, and home decor.</p>
+        </div>
+        <div class="filter-bar fade-in" style="transition-delay: 0.2s;">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="amigurumi">Amigurumi</button>
+          <button class="filter-btn" data-filter="apparel">Apparel</button>
+          <button class="filter-btn" data-filter="blankets">Blankets</button>
+          <button class="filter-btn" data-filter="accessories">Accessories</button>
+        </div>
+        <div class="products-grid">
+          <!-- Product items will be injected here by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2>Kind Words</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card fade-in">
+            <p class="testimonial-text">"I bought the cutie bear from them, its so adorable!!!!! Completely Obsessed!!!!!!!!!"</p>
+            <p class="testimonial-author">- Khushi </p>
+          </div>
+          <div class="testimonial-card fade-in" style="transition-delay: 0.2s;">
+            <p class="testimonial-text">"Bought their bandana last week. Its perfect and looks unique.<br>Love it! "</p>
+            <p class="testimonial-author">- Sarvika</p>
+          </div>
+          <div class="testimonial-card fade-in" style="transition-delay: 0.4s;">
+            <p class="testimonial-text">"The sunflower keychain is just of the perfect size and looks so good on my bag....my friends liked it and will be getting one for themselves "</p>
+            <p class="testimonial-author">- Manvi</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Blog Section -->
+    <section class="section blog" id="blog">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>From the Craft Corner</h2>
+                <p>Tips, tutorials, and stories from our little world of yarn.</p>
+            </div>
+            <div class="blog-grid">
+                <a href="#" class="blog-card fade-in">
+                    <div class="blog-image" style="background: url('yarn.jpeg') center/cover;"></div>
+                    <div class="blog-content">
+                        <p class="blog-date">July 28, 2025</p>
+                        <h3 class="blog-title">Choosing the Perfect Yarn for Your Project</h3>
+                    </div>
+                </a>
+                <a href="#" class="blog-card fade-in" style="transition-delay: 0.2s;">
+                    <div class="blog-image" style="background: url('bear.jpg') top center/cover;"></div>
+                    <div class="blog-content">
+                        <p class="blog-date">October 18, 2023</p>
+                        <h3 class="blog-title">Amigurumi 101: A Beginner's Guide to Cute</h3>
+                    </div>
+                </a>
+                <a href="#" class="blog-card fade-in" style="transition-delay: 0.4s;">
+                    <div class="blog-image" style="background: url('blanket.jpg') center/cover;"></div>
+                    <div class="blog-content">
+                        <p class="blog-date">October 05, 2023</p>
+                        <h3 class="blog-title">5 Cozy Crochet Stitches for Blankets</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+  </main>
+  
+  <!-- Footer -->
+  <footer id="contact">
+      <div class="footer-content">
+          <div class="footer-section">
+              <h4>About Haze Haus</h4>
+              <p>Crafting beautiful, high-quality crochet pieces designed to bring a little extra warmth and joy into your life.</p>
+          </div>
+          <div class="footer-section">
+              <h4>Shop</h4>
+              <ul>
+                  <li><a href="#shop">Amigurumi</a></li>
+                  <li><a href="#shop">Apparel</a></li>
+                  <li><a href="#shop">Blankets</a></li>
+                  <li><a href="#shop">Accessories</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h4>Support</h4>
+              <ul>
+                  <li><a href="#">Contact Us</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">Care Instructions</a></li>
+                  <li><a href="#">Custom Orders</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h4>Stay Connected</h4>
+              <p>Follow our journey and get a peek at new creations!</p>
+              <div class="social-icons">
+                  <a href="https://www.instagram.com/hazehausx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                  <a href="mailto:hazehausdesigns@gmail.com" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+              </div>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>&copy; 2024 Haze Haus. All Rights Reserved.</p>
+      </div>
+  </footer>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="search-overlay">
+    <button class="search-close-btn" id="search-close-btn" aria-label="Close Search">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div class="search-content">
+      <input type="text" class="search-input" placeholder="Search for creations...">
+    </div>
+  </div>
+
+  <!-- Product Quick View Modal -->
+  <div class="product-modal" id="product-modal" tabindex="-1" aria-modal="true" role="dialog" style="display:none;">
+    <div class="product-modal-content">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="modal-image-section">
+        <img id="modal-product-image" src="" alt="Product Image">
+      </div>
+      <div class="modal-info-section">
+        <h2 id="modal-product-name"></h2>
+        <p class="modal-product-category" id="modal-product-category"></p>
+        <p class="modal-product-price" id="modal-product-price"></p>
+        <p class="modal-product-description" id="modal-product-description"></p>
+        <div class="modal-actions">
+          <button class="btn" id="modal-add-to-cart">Add to Cart</button>
+          <button class="btn buy-now" id="modal-buy-now">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cart-overlay" style="display:none;">
+    <div class="cart-sidebar" id="cart-sidebar">
+      <div class="cart-sidebar-header">
+        <h3>Your Cart</h3>
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-sidebar-footer">
+        <div class="cart-total" id="cart-total"></div>
+        <button class="btn checkout-btn" id="checkout-btn">Checkout</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Link to your JavaScript file -->
+  <script src="script.js" defer></script>
+</body>
+</html>
