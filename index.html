@@ -58,6 +58,10 @@
             <button class="icon-btn" id="search-btn" aria-label="Search">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </button>
+            <button class="icon-btn" id="wishlist-btn" aria-label="Wishlist">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              <span class="wishlist-count" id="wishlist-count">0</span>
+            </button>
             <button class="icon-btn" aria-label="Shopping Cart">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               <span class="cart-count" id="cart-count">0</span>
@@ -80,6 +84,9 @@
         <div class="nav-icons">
           <button class="icon-btn" id="mobile-search-btn" aria-label="Search">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+          <button class="icon-btn" id="mobile-wishlist-btn" aria-label="Wishlist">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
           </button>
           <button class="icon-btn" aria-label="Shopping Cart">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
@@ -287,6 +294,22 @@
       <div class="cart-sidebar-footer">
         <div class="cart-total" id="cart-total"></div>
         <button class="btn checkout-btn" id="checkout-btn">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wishlist Sidebar -->
+  <div class="wishlist-overlay" id="wishlist-overlay" style="display:none;">
+    <div class="wishlist-sidebar" id="wishlist-sidebar">
+      <div class="wishlist-sidebar-header">
+        <h3>Your Wishlist</h3>
+        <button class="wishlist-close-btn" id="wishlist-close-btn" aria-label="Close Wishlist">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="wishlist-items" id="wishlist-items"></div>
+      <div class="wishlist-sidebar-footer">
+        <button class="btn add-all-to-cart-btn" id="add-all-to-cart-btn">Add All to Cart</button>
       </div>
     </div>
   </div>
