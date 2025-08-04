@@ -26,6 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const checkoutBtn = document.getElementById('checkout-btn');
   const cartOverlay = document.getElementById('cart-overlay');
 
+  // --- WISHLIST STATE ---
+  let wishlist = [];
+  const wishlistCountElement = document.getElementById('wishlist-count');
+  const wishlistSidebar = document.getElementById('wishlist-sidebar');
+  const wishlistItemsContainer = document.getElementById('wishlist-items');
+  const wishlistOverlay = document.getElementById('wishlist-overlay');
+  const addAllToCartBtn = document.getElementById('add-all-to-cart-btn');
+
   function getCartItem(product) {
     return cart.find(item => item.product.name === product.name);
   }
@@ -53,6 +61,56 @@ document.addEventListener('DOMContentLoaded', function() {
       item.quantity = qty;
       if (item.quantity < 1) removeFromCart(product);
     }
+  }
+
+  // --- WISHLIST FUNCTIONS ---
+  function getWishlistItem(product) {
+    return wishlist.find(item => item.name === product.name);
+  }
+
+  function addToWishlist(product) {
+    if (!getWishlistItem(product)) {
+      wishlist.push(product);
+    }
+  }
+
+  function removeFromWishlist(product) {
+    let idx = wishlist.findIndex(item => item.name === product.name);
+    if (idx !== -1) {
+      wishlist.splice(idx, 1);
+    }
+  }
+
+  function updateWishlistCount() {
+    wishlistCountElement.textContent = wishlist.length;
+    wishlistCountElement.classList.toggle('active', wishlist.length > 0);
+  }
+
+  function updateWishlistSidebar() {
+    wishlistItemsContainer.innerHTML = '';
+    if (wishlist.length === 0) {
+      wishlistItemsContainer.innerHTML = '<div class="wishlist-empty">Your wishlist is empty.</div>';
+      return;
+    }
+    wishlist.forEach((product, idx) => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'wishlist-item';
+      itemDiv.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" class="wishlist-item-img">
+        <div class="wishlist-item-info">
+          <div class="wishlist-item-name">${product.name}</div>
+          <div class="wishlist-item-price">₹${product.price}</div>
+          <button class="wishlist-add-to-cart-btn" data-index="${idx}">Add to Cart</button>
+        </div>
+        <button class="wishlist-remove-btn" data-index="${idx}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      `;
+      wishlistItemsContainer.appendChild(itemDiv);
+    });
   }
 
   function updateCartCount() {
@@ -105,6 +163,34 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('[aria-label="Shopping Cart"]').forEach(btn => {
     btn.addEventListener('click', openCartSidebar);
   });
+
+  // --- WISHLIST SIDEBAR FUNCTIONS ---
+  function openWishlistSidebar() {
+    wishlistOverlay.style.display = 'flex';
+    setTimeout(() => wishlistSidebar.classList.add('active'), 10);
+  }
+
+  function closeWishlistSidebar() {
+    wishlistSidebar.classList.remove('active');
+    setTimeout(() => wishlistOverlay.style.display = 'none', 200);
+  }
+
+  // Wishlist button event listeners
+  document.getElementById('wishlist-btn').addEventListener('click', openWishlistSidebar);
+  document.getElementById('mobile-wishlist-btn').addEventListener('click', openWishlistSidebar);
+  document.getElementById('wishlist-close-btn').addEventListener('click', closeWishlistSidebar);
+
+  // Close wishlist when clicking outside
+  wishlistOverlay.addEventListener('click', function(e) {
+    if (e.target === wishlistOverlay) closeWishlistSidebar();
+  });
+
+  // Close wishlist with Escape key
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && wishlistOverlay.style.display !== 'none') {
+      closeWishlistSidebar();
+    }
+  });
   // Close cart when clicking outside the sidebar
   cartOverlay.addEventListener('click', function(e) {
     if (e.target === cartOverlay) closeCartSidebar();
@@ -124,6 +210,55 @@ document.addEventListener('DOMContentLoaded', function() {
       renderProducts();
       renderSearchResults(searchInput.value);
     }
+  });
+
+  // Wishlist item removal and add to cart
+  wishlistItemsContainer.addEventListener('click', function(e) {
+    if (e.target.closest('.wishlist-remove-btn')) {
+      const idx = parseInt(e.target.closest('.wishlist-remove-btn').dataset.index);
+      if (wishlist[idx]) {
+        wishlist.splice(idx, 1);
+        updateWishlistCount();
+        updateWishlistSidebar();
+        renderProducts();
+        renderSearchResults(searchInput.value);
+      }
+    }
+    
+    // Add individual item from wishlist to cart
+    if (e.target.classList.contains('wishlist-add-to-cart-btn')) {
+      const idx = parseInt(e.target.dataset.index);
+      if (wishlist[idx]) {
+        const product = wishlist[idx];
+        addToCart(product);
+        // Remove from wishlist
+        wishlist.splice(idx, 1);
+        updateCartCount();
+        updateCartSidebar();
+        updateWishlistCount();
+        updateWishlistSidebar();
+        renderProducts();
+        renderSearchResults(searchInput.value);
+      }
+    }
+  });
+
+  // Add all wishlist items to cart
+  addAllToCartBtn.addEventListener('click', function() {
+    wishlist.forEach(product => {
+      if (!getCartItem(product)) {
+        addToCart(product);
+      }
+    });
+    // Clear the entire wishlist after adding all items to cart
+    wishlist = [];
+    updateCartCount();
+    updateCartSidebar();
+    updateWishlistCount();
+    updateWishlistSidebar();
+    renderProducts();
+    renderSearchResults(searchInput.value);
+    closeWishlistSidebar();
   });
   checkoutBtn.addEventListener('click', function() {
     alert('Checkout is not implemented in this demo.');
@@ -195,6 +330,12 @@ document.addEventListener('DOMContentLoaded', function() {
   modalAddToCart.addEventListener('click', function() {
     if (!cart.some(item => item.product.name === currentModalProduct.name)) {
       cart.push({ product: currentModalProduct, quantity: 1 });
+      // Remove from wishlist if present
+      if (getWishlistItem(currentModalProduct)) {
+        removeFromWishlist(currentModalProduct);
+        updateWishlistCount();
+        updateWishlistSidebar();
+      }
       updateCartCount();
       updateCartSidebar();
       renderProducts();
@@ -205,6 +346,12 @@ document.addEventListener('DOMContentLoaded', function() {
   modalBuyNow.addEventListener('click', function() {
     if (!cart.some(item => item.product.name === currentModalProduct.name)) {
       cart.push({ product: currentModalProduct, quantity: 1 });
+      // Remove from wishlist if present
+      if (getWishlistItem(currentModalProduct)) {
+        removeFromWishlist(currentModalProduct);
+        updateWishlistCount();
+        updateWishlistSidebar();
+      }
       updateCartCount();
       updateCartSidebar();
       renderProducts();
@@ -301,14 +448,20 @@ document.addEventListener('DOMContentLoaded', function() {
     searchResultsContainer.innerHTML = '';
     searchResultsContainer.appendChild(searchGrid);
     searchGrid.innerHTML = matches.map((product, index) => {
-      const item = getCartItem(product);
-      const inCart = !!item;
-      const qty = item ? item.quantity : 0;
+      const cartItem = getCartItem(product);
+      const wishlistItem = getWishlistItem(product);
+      const inCart = !!cartItem;
+      const inWishlist = !!wishlistItem;
+      const qty = cartItem ? cartItem.quantity : 0;
       return `
         <div class="product-card fade-in visible" data-category="${product.category}" style="transition-delay: ${index * 100}ms">
           <div class="product-image-wrapper">
             <img src="${product.image}" alt="${product.name}" class="product-image">
-            ${inCart ? '<span class="heart-icon">&#10084;</span>' : ''}
+            <button class="heart-btn ${inWishlist ? 'active' : ''}" data-product="${product.name}">
+              <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${inWishlist ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
           </div>
           <div class="product-info">
             <p class="product-category">${product.category}</p>
@@ -332,10 +485,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function addProductCardListeners() {
     document.querySelectorAll('.product-card').forEach(card => {
       card.addEventListener('click', function(e) {
-        // Prevent modal opening if clicking a quantity button or inside qty-controls
+        // Prevent modal opening if clicking buttons or controls
         if (
           e.target.classList.contains('add-to-cart-btn') ||
           e.target.classList.contains('remove-from-cart-btn') ||
+          e.target.classList.contains('heart-btn') ||
+          e.target.closest('.heart-btn') ||
           e.target.classList.contains('qty-btn') ||
           e.target.closest('.qty-controls')
         ) return;
@@ -348,16 +503,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // --- RENDER PRODUCTS (with heart icon) ---
+  // --- RENDER PRODUCTS (with heart icon for wishlist) ---
   function renderProducts(filter = 'all') {
     productsGrid.innerHTML = '';
     const filteredProducts = filter === 'all' 
       ? products 
       : products.filter(p => p.category === filter);
     filteredProducts.forEach((product, index) => {
-      const item = getCartItem(product);
-      const inCart = !!item;
-      const qty = item ? item.quantity : 0;
+      const cartItem = getCartItem(product);
+      const wishlistItem = getWishlistItem(product);
+      const inCart = !!cartItem;
+      const inWishlist = !!wishlistItem;
+      const qty = cartItem ? cartItem.quantity : 0;
       const productCard = document.createElement('div');
       productCard.className = 'product-card fade-in';
       productCard.setAttribute('data-category', product.category);
@@ -365,7 +522,11 @@ document.addEventListener('DOMContentLoaded', function() {
       productCard.innerHTML = `
         <div class="product-image-wrapper">
           <img src="${product.image}" alt="${product.name}" class="product-image">
-          ${inCart ? '<span class="heart-icon">&#10084;</span>' : ''}
+          <button class="heart-btn ${inWishlist ? 'active' : ''}" data-product="${product.name}">
+            <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${inWishlist ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
         </div>
         <div class="product-info">
           <p class="product-category">${product.category}</p>
@@ -414,6 +575,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const name = card.querySelector('.product-name').textContent;
       const product = products.find(p => p.name === name);
       addToCart(product);
+      // Remove from wishlist if present
+      if (getWishlistItem(product)) {
+        removeFromWishlist(product);
+        updateWishlistCount();
+        updateWishlistSidebar();
+      }
       updateCartCount();
       updateCartSidebar();
       renderProducts();
@@ -422,6 +589,25 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         e.target.textContent = 'Add to Cart';
       }, 1500);
+    }
+
+    // Heart button (Add/Remove from Wishlist)
+    if (e.target.classList.contains('heart-btn') || e.target.closest('.heart-btn')) {
+      const heartBtn = e.target.classList.contains('heart-btn') ? e.target : e.target.closest('.heart-btn');
+      const productName = heartBtn.dataset.product;
+      const product = products.find(p => p.name === productName);
+      const isInWishlist = getWishlistItem(product);
+      
+      if (isInWishlist) {
+        removeFromWishlist(product);
+      } else {
+        addToWishlist(product);
+      }
+      
+      updateWishlistCount();
+      updateWishlistSidebar();
+      renderProducts();
+      renderSearchResults(searchInput.value);
     }
     // Quantity minus
     if (e.target.classList.contains('qty-minus')) {
@@ -509,10 +695,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3. After the fade out, remove the element completely from the page
     setTimeout(() => {
       splashScreen.remove();
-      // Now run initial renders
-      renderProducts(); // Restored to bring back products and search
-      updateCartCount();
-      updateCartSidebar();
+          // Now run initial renders
+    renderProducts(); // Restored to bring back products and search
+    updateCartCount();
+    updateCartSidebar();
+    updateWishlistCount();
+    updateWishlistSidebar();
     }, 500);
 
   }, totalDuration);
